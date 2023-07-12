@@ -5,8 +5,6 @@ from kurs.views.course import CourseViewSet
 
 app_name = "kurs"
 
-router = DefaultRouter()
-router.register(r"kurs", CourseViewSet, basename="kurs")
 
 urlpatterns = [
     path("lesson/", LessonListView.as_view()),
@@ -15,4 +13,8 @@ urlpatterns = [
     path("lesson/update/<int:pk>/", LessonUpdateView.as_view(), name="lesson_update"),
     path("lesson/delete/<int:pk>/", LessonDeleteView.as_view(), name="lesson_delete"),
 
-] + router.urls
+]
+
+router = DefaultRouter()
+router.register(r"course", CourseViewSet)
+urlpatterns += router.urls
