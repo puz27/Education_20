@@ -16,5 +16,5 @@ urlpatterns = [
 ]
 
 router = DefaultRouter()
-router.register(r"course", CourseViewSet)
+router.register(r"course", CourseViewSet, basename="course")
 urlpatterns += router.urls
