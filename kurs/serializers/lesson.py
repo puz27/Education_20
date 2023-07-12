@@ -3,6 +3,10 @@ from kurs.models import Lesson
 
 
 class LessonSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(max_length=None, use_url=True)
+
     class Meta:
         model = Lesson
-        filter = "__all__"
+        fields = "__all__"
+
+

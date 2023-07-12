@@ -6,3 +6,4 @@ class CourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         filter = "__all__"
+

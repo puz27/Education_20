@@ -1,28 +1,29 @@
-from rest_framework.generics import RetrieveAPIView, UpdateAPIView, DestroyAPIView, CreateAPIView, ListAPIView
+from rest_framework import generics
 from kurs.serializers.lesson import LessonSerializer
 from kurs.models import Lesson
 
 
-class LessonDetailView(RetrieveAPIView):
+class LessonListView(generics.ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 
 
-class LessonListView(ListAPIView):
+class LessonDetailView(generics.RetrieveAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 
 
-class LessonCreateView(CreateAPIView):
+class LessonCreateView(generics.CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 
 
-class LessonUpdateView(UpdateAPIView):
+class LessonUpdateView(generics.UpdateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 
 
-class LessonDeleteView(DestroyAPIView):
+class LessonDeleteView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+
