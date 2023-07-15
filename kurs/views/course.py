@@ -1,9 +1,8 @@
 from rest_framework import viewsets
 from kurs.models import Course
-from kurs.serializers.course import CourceSerializer, CourceListSerializer
+from kurs.serializers.course import CourseSerializer, CourseListLessonSerializer, CourseCountSerializer
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
-    serializer_class = CourceListSerializer
-
+    serializer_class = CourseCountSerializer

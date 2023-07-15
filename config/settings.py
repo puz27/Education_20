@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'kurs',
     'users',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,9 @@ LOGIN_REDIRECT_URL = '/'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+}

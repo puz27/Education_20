@@ -1,7 +1,8 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from kurs.views.lesson import LessonDetailView, LessonListView, LessonCreateView, LessonDeleteView, LessonUpdateView
-from kurs.views.payment import PaymentDetailView, PaymentListView, PaymentCreateView, PaymentDeleteView, PaymentUpdateView
+from kurs.views.payment import PaymentDetailView, PaymentListView, PaymentCreateView, PaymentDeleteView, \
+    PaymentUpdateView, PaymentFilter
 from kurs.views.course import CourseViewSet
 
 app_name = "kurs"
@@ -20,6 +21,7 @@ urlpatterns = [
     path("payment/create/", PaymentCreateView.as_view(), name="lesson_create"),
     path("payment/update/<int:pk>/", PaymentUpdateView.as_view(), name="lesson_update"),
     path("payment/delete/<int:pk>/", PaymentDeleteView.as_view(), name="lesson_delete"),
+    path("payment/filter/", PaymentFilter.as_view()),
 
 ]
 # course

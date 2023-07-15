@@ -6,7 +6,6 @@ class Course(models.Model):
     title = models.CharField(max_length=100, verbose_name="course_name")
     description = models.TextField(null=True, blank=True, verbose_name="course_description")
     image = models.ImageField(upload_to="images", null=True, blank=True)
-    lesson = models.ForeignKey("Lesson", on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -21,6 +20,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=100, verbose_name="lesson_name")
     description = models.TextField(null=True, blank=True, verbose_name="lesson_description")
     image = models.ImageField(upload_to="images", null=True, blank=True)
+    course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True, blank=True, related_name="lesson")
 
     def __str__(self):
         return self.title
