@@ -1,6 +1,4 @@
 from rest_framework import serializers
-from rest_framework.fields import SerializerMethodField
-from rest_framework.relations import SlugRelatedField
 from kurs.models import Course, Lesson
 from kurs.serializers.lesson import LessonSerializer
 

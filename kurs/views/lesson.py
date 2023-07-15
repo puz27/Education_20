@@ -26,4 +26,3 @@ class LessonUpdateView(generics.UpdateAPIView):
 class LessonDeleteView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-
