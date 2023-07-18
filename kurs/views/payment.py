@@ -1,5 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
 from kurs.serializers.payment import PaymentSerializer
 from kurs.models import Payment
 from rest_framework.filters import OrderingFilter
@@ -8,29 +10,35 @@ from rest_framework.filters import OrderingFilter
 class PaymentListView(generics.ListAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class PaymentDetailView(generics.RetrieveAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class PaymentCreateView(generics.CreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class PaymentUpdateView(generics.UpdateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class PaymentDeleteView(generics.DestroyAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class PaymentFilter(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
     # filters
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
