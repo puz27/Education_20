@@ -6,12 +6,13 @@ from kurs.models import Lesson
 from kurs.models import Course
 from kurs.serializers.course import CourseSerializer, CourseListLessonSerializer, CourseCountSerializer
 from rest_framework import generics
+from kurs.permissions import IsStaff, IsOwner
 
 
 class CourseListView(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsStaff | IsOwner]
 
 
 class CourseDetailView(generics.RetrieveAPIView):
@@ -25,10 +26,16 @@ class CourseCreateView(generics.CreateAPIView):
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated]
 
+    def perform_create(self, serializer):
+        new_course = serializer.save()
+        new_course.owner = self.request.user
+        new_course.save()
+
 
 class CourseUpdateView(generics.UpdateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class CourseDeleteView(generics.DestroyAPIView):
