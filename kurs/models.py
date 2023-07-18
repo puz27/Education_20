@@ -35,14 +35,10 @@ class Lesson(models.Model):
 
 class Payment(models.Model):
 
-    class PaymentType(models.TextChoices):
-        Cash = 'CASH'
-        Transfer = 'TRANSFER'
-
     user = models.CharField(max_length=100, verbose_name="user_name")
     date = models.DateField()
     lesson = models.ForeignKey("Lesson", on_delete=models.SET_NULL, null=True, blank=True)
     course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True, blank=True)
     payment = models.IntegerField(null=False, blank=False)
-    type = models.CharField(choices=PaymentType.choices)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+

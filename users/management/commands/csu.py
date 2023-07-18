@@ -29,6 +29,7 @@ class Command(BaseCommand):
         user.set_password("test")
         user.save()
 
+
         user = Users.objects.create(
             email="test2@gmail.com",
             first_name="test2",
