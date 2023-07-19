@@ -10,7 +10,6 @@ class IsStaff(BasePermission):
 
 
 class IsOwner(BasePermission):
-    """ Use for checking owner of object"""
 
     def has_object_permission(self, request, view, obj):
         if request.user == obj.owner:

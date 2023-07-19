@@ -5,13 +5,12 @@ from users.models import Users
 from users.serializers.users import UserSerializer
 
 
-# class IsAdminOrReadOnly(BasePermission):
-#
-#     def has_permission(self, request, view):
-#
-#         if request.method in SAFE_METHODS:
-#             return True
-#         return request.user.is_authenticated
+class IsOwnerOrReadOnly(BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        return obj.pk == request.user.pk
 
 
 class UsersListView(generics.ListAPIView):
@@ -35,10 +34,10 @@ class UsersCreateView(generics.CreateAPIView):
 class UsersUpdateView(generics.UpdateAPIView):
     queryset = Users.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 class UsersDeleteView(generics.DestroyAPIView):
     queryset = Users.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
