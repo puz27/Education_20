@@ -1,6 +1,5 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_METHODS
-from kurs.serializers.lesson import LessonSerializer
 from users.models import Users
 from users.serializers.users import UserSerializer
 
