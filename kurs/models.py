@@ -42,3 +42,6 @@ class Payment(models.Model):
     payment = models.IntegerField(null=False, blank=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
+
+class Subscription(models.Model):
+    is_active = models.BooleanField(default=True)

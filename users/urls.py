@@ -15,8 +15,8 @@ urlpatterns = [
     path("show/<int:pk>/", UsersDetailView.as_view()),
     path("update/<int:pk>/", UsersUpdateView.as_view()),
     path("delete/<int:pk>/", UsersDeleteView.as_view()),
-    path('token/', TokenObtainPairView.as_view()),
-    path('token/refresh/', TokenRefreshView.as_view()),
+    path('token/', TokenObtainPairView.as_view(), name="take_token"),
+    path('token/refresh/', TokenRefreshView.as_view(), name="refresh_token"),
 
 ]
 

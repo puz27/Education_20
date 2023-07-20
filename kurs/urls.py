@@ -11,20 +11,20 @@ app_name = "kurs"
 
 urlpatterns = [
     # lessons
-    path("lesson/", LessonListView.as_view()),
+    path("lesson/", LessonListView.as_view(), name="show_all_lessons"),
     path("lesson/<int:pk>/", LessonDetailView.as_view(), name="lesson_show"),
     path("lesson/create/", LessonCreateView.as_view(), name="lesson_create"),
     path("lesson/update/<int:pk>/", LessonUpdateView.as_view(), name="lesson_update"),
     path("lesson/delete/<int:pk>/", LessonDeleteView.as_view(), name="lesson_delete"),
     # payment
-    path("payment/", PaymentListView.as_view()),
+    path("payment/", PaymentListView.as_view(), name="show_all_payments"),
     path("payment/<int:pk>/", PaymentDetailView.as_view(), name="lesson_show"),
     path("payment/create/", PaymentCreateView.as_view(), name="lesson_create"),
     path("payment/update/<int:pk>/", PaymentUpdateView.as_view(), name="lesson_update"),
     path("payment/delete/<int:pk>/", PaymentDeleteView.as_view(), name="lesson_delete"),
     path("payment/filter/", PaymentFilter.as_view()),
     # course
-    path("course/", CourseListView.as_view()),
+    path("course/", CourseListView.as_view(), name="show_all_courses"),
     path("course/<int:pk>/", CourseDetailView.as_view(), name="course_show"),
     path("course/create/", CourseCreateView.as_view(), name="course_create"),
     path("course/update/<int:pk>/", CourseUpdateView.as_view(), name="course_update"),
