@@ -29,7 +29,6 @@ class Command(BaseCommand):
         user.set_password("test")
         user.save()
 
-
         user = Users.objects.create(
             email="test2@gmail.com",
             first_name="test2",
@@ -40,6 +39,18 @@ class Command(BaseCommand):
         )
 
         user.set_password("test2")
+        user.save()
+
+        user = Users.objects.create(
+            email="test3@gmail.com",
+            first_name="test3",
+            last_name="test3",
+            is_superuser=False,
+            is_staff=False,
+            is_active=True
+        )
+
+        user.set_password("test3")
         user.save()
 
         user = Users.objects.create(

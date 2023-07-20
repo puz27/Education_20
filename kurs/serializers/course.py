@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from kurs.models import Course, Lesson
 from kurs.serializers.lesson import LessonSerializer
+from kurs.validators import validator_scan_links
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    description = serializers.CharField(validators=[validator_scan_links])
 
     class Meta:
         model = Course
