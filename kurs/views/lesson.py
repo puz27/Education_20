@@ -1,4 +1,5 @@
 from rest_framework import generics
+from kurs.pagination import DataPaginator
 from kurs.permissions import IsOwner, IsStaff
 from kurs.serializers.lesson import LessonSerializer
 from kurs.models import Lesson
@@ -8,6 +9,7 @@ class LessonListView(generics.ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsStaff | IsOwner]
+    pagination_class = DataPaginator
 
 
 class LessonDetailView(generics.RetrieveAPIView):

@@ -1,5 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
+
+from kurs.pagination import DataPaginator
 from kurs.serializers.payment import PaymentSerializer
 from kurs.models import Payment
 from rest_framework.filters import OrderingFilter
@@ -10,6 +12,7 @@ class PaymentListView(generics.ListAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [IsStaff | IsOwner]
+    pagination_class = DataPaginator
 
 
 class PaymentDetailView(generics.RetrieveAPIView):

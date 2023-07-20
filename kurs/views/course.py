@@ -1,4 +1,5 @@
 from kurs.models import Course
+from kurs.pagination import DataPaginator
 from kurs.serializers.course import CourseSerializer, CourseListLessonSerializer, CourseCountSerializer
 from rest_framework import generics
 from kurs.permissions import IsStaff, IsOwner
@@ -8,6 +9,7 @@ class CourseListView(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsOwner | IsStaff]
+    pagination_class = DataPaginator
 
 
 class CourseDetailView(generics.RetrieveAPIView):
