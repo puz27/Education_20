@@ -44,4 +44,13 @@ class Payment(models.Model):
 
 
 class Subscription(models.Model):
-    is_active = models.BooleanField(default=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='user_subscription')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='course', related_name="subscription")
+    is_subscribed = models.BooleanField(default=False, verbose_name='user_subscription_on_course')
+
+    def __str__(self):
+        return self.owner
+
+    class Meta:
+        verbose_name = 'Subscription'
+        verbose_name_plural = 'Subscriptions'

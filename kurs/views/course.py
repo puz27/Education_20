@@ -51,8 +51,3 @@ class CourseCountView(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseCountSerializer
     permission_classes = [IsStaff | IsOwner]
-
-
-# class CourseViewSet(viewsets.ModelViewSet):
-#     queryset = Course.objects.all()
-#     serializer_class = CourseCountSerializer
