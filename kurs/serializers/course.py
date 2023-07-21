@@ -12,13 +12,14 @@ class CourseSerializer(serializers.ModelSerializer):
     lessons = LessonSerializer(many=True, read_only=True)
 
     def get_subscribed_subscriptions(self, obj):
-        """"""
+        """ Show subscription of owners """
         request = self.context.get('request')
         if request and request.user.is_authenticated:
             return Subscription.objects.filter(owner=request.user, course=obj).exists()
         return False
 
     def get_lessons_count(self, obj):
+        """ Show counts of lessons in course """
         return obj.lesson.count()
 
     class Meta:

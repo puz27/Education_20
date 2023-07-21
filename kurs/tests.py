@@ -1,5 +1,5 @@
 from rest_framework.test import APITestCase
-from kurs.models import Lesson, Course
+from kurs.models import Lesson, Course, Subscription
 from rest_framework import status
 from users.models import Users
 
@@ -128,3 +128,43 @@ class CourseTestCase(APITestCase):
                 response.status_code,
                 status.HTTP_400_BAD_REQUEST
             )
+
+
+# class SubscriptionTestCase(APITestCase):
+#
+#     def setUp(self):
+#             """ Prepare testing """
+#             self.user = Users(
+#                 email="test3@gmail.com"
+#             )
+#             self.user.set_password("test3")
+#             self.user.save()
+#
+#             response = self.client.post(
+#                 "/api/v1/users/token/",
+#                 {"email": "test3@gmail.com", "password": "test3"}
+#             )
+#
+#             self.access_token = response.json().get("access")
+#             self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
+#
+#             self.course = Course.objects.create(
+#                 title="Test Course",
+#                 description="Test Course description",
+#             )
+#
+#             self.course = Subscription.objects.create(
+#                 owner=self.user.pk,
+#                 course=1,
+#                 is_subscribed=True
+#             )
+#
+#     def test_get_subscriptions(self):
+#             response = self.client.get("/api/v1/Subscription/")
+#
+#             self.assertEqual(
+#                 response.status_code,
+#                 status.HTTP_200_OK
+#             )
+
+
