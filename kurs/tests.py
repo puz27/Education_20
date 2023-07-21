@@ -5,6 +5,7 @@ from users.models import Users
 
 
 class LessonTestCase(APITestCase):
+    """ Testing Lessons """
 
     def setUp(self):
         """ Prepare testing """
@@ -68,6 +69,7 @@ class LessonTestCase(APITestCase):
 
 
 class CourseTestCase(APITestCase):
+    """ Testing Courses """
 
     def setUp(self):
         """ Prepare testing """
@@ -131,6 +133,7 @@ class CourseTestCase(APITestCase):
 
 
 class SubscriptionTestCase(APITestCase):
+    """ Testing Subscription """
 
     def setUp(self):
         """ Prepare testing """
@@ -159,16 +162,8 @@ class SubscriptionTestCase(APITestCase):
             course=self.course
         )
 
-    def test_get_subscriptions(self):
-        response = self.client.get("/api/v1/subscription/")
-
-        self.assertEqual(
-            response.status_code,
-            status.HTTP_200_OK
-        )
-
     def test_create_subscription(self):
-        data = {"owner": 2,
+        data = {"owner": 1,
                 "course": 1
                 }
 
@@ -180,50 +175,11 @@ class SubscriptionTestCase(APITestCase):
         )
         self.assertTrue(Subscription.objects.all().exists())
 
+    def test_get_subscriptions(self):
+        response = self.client.get("/api/v1/subscription/")
 
-#
-# class SubscriptionTestCase(APITestCase):
-#
-#     def setUp(self):
-#         """ Prepare testing """
-#         self.user = Users(
-#             email="test3@gmail.com"
-#         )
-#         self.user.set_password("test3")
-#         self.user.save()
-#
-#         response = self.client.post(
-#             "/api/v1/users/token/",
-#             {"email": "test3@gmail.com", "password": "test3"}
-#         )
-#
-#         self.access_token = response.json().get("access")
-#         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
-#
-#         self.course = Course.objects.create(
-#             title="Test Course",
-#             description="Test Course description",
-#         )
-#
-#     def test_create_subscription(self):
-#         data = {"owner": 2,
-#                 "course": 1
-#                 }
-#
-#         response = self.client.post("/api/v1/subscription/create/", data)
-#
-#         self.assertEqual(
-#             response.status_code,
-#             status.HTTP_201_CREATED
-#         )
-#         self.assertTrue(Subscription.objects.all().exists())
-#
-#     def test_get_subscriptions(self):
-#         response = self.client.get("/api/v1/subscription/")
-#
-#         self.assertEqual(
-#             response.status_code,
-#             status.HTTP_200_OK
-#         )
-#
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK
+        )
 
