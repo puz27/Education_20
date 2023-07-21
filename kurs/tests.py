@@ -70,31 +70,31 @@ class LessonTestCase(APITestCase):
 class CourseTestCase(APITestCase):
 
     def setUp(self):
-            """ Prepare testing """
-            self.user = Users(
-                email="test3@gmail.com"
-            )
-            self.user.set_password("test3")
-            self.user.save()
+        """ Prepare testing """
+        self.user = Users(
+            email="test3@gmail.com"
+        )
+        self.user.set_password("test3")
+        self.user.save()
 
-            response = self.client.post(
-                "/api/v1/users/token/",
-                {"email": "test3@gmail.com", "password": "test3"}
-            )
+        response = self.client.post(
+            "/api/v1/users/token/",
+            {"email": "test3@gmail.com", "password": "test3"}
+        )
 
-            self.access_token = response.json().get("access")
-            self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
+        self.access_token = response.json().get("access")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
 
-            self.course = Course.objects.create(
-                title="Test Course",
-                description="Test Course description",
-            )
+        self.course = Course.objects.create(
+            title="Test Course",
+            description="Test Course description",
+        )
 
-            self.lesson = Lesson.objects.create(
-                title="Test Lesson",
-                description="Test Lesson description",
-                course=self.course
-            )
+        self.lesson = Lesson.objects.create(
+            title="Test Lesson",
+            description="Test Lesson description",
+            course=self.course
+        )
 
     def test_get_courses(self):
             response = self.client.get("/api/v1/course/")
@@ -105,17 +105,17 @@ class CourseTestCase(APITestCase):
             )
 
     def test_create_course(self):
-            data = {"title": "Test title",
-                    "description": "Test description"
-                    }
+        data = {"title": "Test title",
+                "description": "Test description"
+                }
 
-            response = self.client.post("/api/v1/course/create/", data)
+        response = self.client.post("/api/v1/course/create/", data)
 
-            self.assertEqual(
-                response.status_code,
-                status.HTTP_201_CREATED
-            )
-            self.assertTrue(Course.objects.all().exists())
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
+        self.assertTrue(Course.objects.all().exists())
 
     def test_validate_course(self):
             data = {"title": "Test Lesson23",
@@ -130,41 +130,100 @@ class CourseTestCase(APITestCase):
             )
 
 
+class SubscriptionTestCase(APITestCase):
+
+    def setUp(self):
+        """ Prepare testing """
+        self.user = Users(
+            email="test3@gmail.com"
+        )
+        self.user.set_password("test3")
+        self.user.save()
+
+        response = self.client.post(
+            "/api/v1/users/token/",
+            {"email": "test3@gmail.com", "password": "test3"}
+        )
+
+        self.access_token = response.json().get("access")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
+
+        self.course = Course.objects.create(
+            title="Test Course",
+            description="Test Course description",
+        )
+
+        self.lesson = Lesson.objects.create(
+            title="Test Lesson",
+            description="Test Lesson description",
+            course=self.course
+        )
+
+    def test_get_subscriptions(self):
+        response = self.client.get("/api/v1/subscription/")
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+    def test_create_subscription(self):
+        data = {"owner": 2,
+                "course": 1
+                }
+
+        response = self.client.post("/api/v1/subscription/create/", data)
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
+        self.assertTrue(Subscription.objects.all().exists())
+
+
+#
 # class SubscriptionTestCase(APITestCase):
 #
 #     def setUp(self):
-#             """ Prepare testing """
-#             self.user = Users(
-#                 email="test3@gmail.com"
-#             )
-#             self.user.set_password("test3")
-#             self.user.save()
+#         """ Prepare testing """
+#         self.user = Users(
+#             email="test3@gmail.com"
+#         )
+#         self.user.set_password("test3")
+#         self.user.save()
 #
-#             response = self.client.post(
-#                 "/api/v1/users/token/",
-#                 {"email": "test3@gmail.com", "password": "test3"}
-#             )
+#         response = self.client.post(
+#             "/api/v1/users/token/",
+#             {"email": "test3@gmail.com", "password": "test3"}
+#         )
 #
-#             self.access_token = response.json().get("access")
-#             self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
+#         self.access_token = response.json().get("access")
+#         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
 #
-#             self.course = Course.objects.create(
-#                 title="Test Course",
-#                 description="Test Course description",
-#             )
+#         self.course = Course.objects.create(
+#             title="Test Course",
+#             description="Test Course description",
+#         )
 #
-#             self.course = Subscription.objects.create(
-#                 owner=self.user.pk,
-#                 course=1,
-#                 is_subscribed=True
-#             )
+#     def test_create_subscription(self):
+#         data = {"owner": 2,
+#                 "course": 1
+#                 }
+#
+#         response = self.client.post("/api/v1/subscription/create/", data)
+#
+#         self.assertEqual(
+#             response.status_code,
+#             status.HTTP_201_CREATED
+#         )
+#         self.assertTrue(Subscription.objects.all().exists())
 #
 #     def test_get_subscriptions(self):
-#             response = self.client.get("/api/v1/Subscription/")
+#         response = self.client.get("/api/v1/subscription/")
 #
-#             self.assertEqual(
-#                 response.status_code,
-#                 status.HTTP_200_OK
-#             )
-
+#         self.assertEqual(
+#             response.status_code,
+#             status.HTTP_200_OK
+#         )
+#
 

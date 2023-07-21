@@ -30,9 +30,9 @@ urlpatterns = [
     path("course/update/<int:pk>/", CourseUpdateView.as_view(), name="course_update"),
     path("course/delete/<int:pk>/", CourseDeleteView.as_view(), name="course_delete"),
     # subscription
-    path("subscription/", SubscriptionListView.as_view(), name="show_all_courses"),
-    path("subscription/create/", SubscriptionCreateView.as_view(), name="course_create"),
-    path("subscription/delete/<int:pk>/", SubscriptionDeleteView.as_view(), name="course_delete"),
+    path("subscription/", SubscriptionListView.as_view(), name="show_all_subscriptions"),
+    path("subscription/create/", SubscriptionCreateView.as_view(), name="subscription_create"),
+    path("subscription/delete/<int:pk>/", SubscriptionDeleteView.as_view(), name="subscription_delete"),
     # get all lessons for course
     path("course/lesson-list/", CourseListLessonView.as_view()),
     # get counts of lessons for course

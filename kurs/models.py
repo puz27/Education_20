@@ -44,8 +44,8 @@ class Payment(models.Model):
 
 
 class Subscription(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='user_subscription')
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='course', related_name="subscription")
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    course = models.ForeignKey("Course", on_delete=models.CASCADE, verbose_name='course', related_name="subscription")
     is_subscribed = models.BooleanField(default=False, verbose_name='user_subscription_on_course')
 
     def __str__(self):
