@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'kurs',
     'users',
     'django_filters',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
