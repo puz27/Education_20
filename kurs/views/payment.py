@@ -9,6 +9,7 @@ from kurs.permissions import IsOwner, IsStaff
 
 
 class PaymentListView(generics.ListAPIView):
+    """ All payments """
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [IsStaff | IsOwner]
@@ -16,12 +17,14 @@ class PaymentListView(generics.ListAPIView):
 
 
 class PaymentDetailView(generics.RetrieveAPIView):
+    """ Detailed information about payment """
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class PaymentCreateView(generics.CreateAPIView):
+    """ Create payment with owner information"""
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [IsStaff | IsOwner]
@@ -33,18 +36,21 @@ class PaymentCreateView(generics.CreateAPIView):
 
 
 class PaymentUpdateView(generics.UpdateAPIView):
+    """ Update information in payment """
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class PaymentDeleteView(generics.DestroyAPIView):
+    """ Delete payment """
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class PaymentFilter(generics.ListAPIView):
+    """ Payment and use filters """
     permission_classes = [IsStaff | IsOwner]
     # filters
     queryset = Payment.objects.all()

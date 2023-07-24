@@ -6,6 +6,7 @@ from kurs.permissions import IsStaff, IsOwner
 
 
 class CourseListView(generics.ListAPIView):
+    """ All courses """
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsOwner | IsStaff]
@@ -13,12 +14,14 @@ class CourseListView(generics.ListAPIView):
 
 
 class CourseDetailView(generics.RetrieveAPIView):
+    """ Detailed information about course """
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class CourseCreateView(generics.CreateAPIView):
+    """ Create course with owner information"""
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsStaff | IsOwner]
@@ -30,24 +33,28 @@ class CourseCreateView(generics.CreateAPIView):
 
 
 class CourseUpdateView(generics.UpdateAPIView):
+    """ Update information in course """
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class CourseDeleteView(generics.DestroyAPIView):
+    """ Delete course """
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class CourseListLessonView(generics.ListAPIView):
+    """ All lessons in course"""
     queryset = Course.objects.all()
     serializer_class = CourseListLessonSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class CourseCountView(generics.ListAPIView):
+    """ Count of lessons """
     queryset = Course.objects.all()
     serializer_class = CourseCountSerializer
     permission_classes = [IsStaff | IsOwner]

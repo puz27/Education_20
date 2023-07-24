@@ -6,6 +6,7 @@ from kurs.models import Lesson
 
 
 class LessonListView(generics.ListAPIView):
+    """ All lessons """
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsStaff | IsOwner]
@@ -13,12 +14,14 @@ class LessonListView(generics.ListAPIView):
 
 
 class LessonDetailView(generics.RetrieveAPIView):
+    """ Detailed information about lesson """
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class LessonCreateView(generics.CreateAPIView):
+    """ Create lesson with owner information"""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsStaff | IsOwner]
@@ -30,12 +33,14 @@ class LessonCreateView(generics.CreateAPIView):
 
 
 class LessonUpdateView(generics.UpdateAPIView):
+    """ Update information in lesson """
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class LessonDeleteView(generics.DestroyAPIView):
+    """ Delete lesson """
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsStaff | IsOwner]

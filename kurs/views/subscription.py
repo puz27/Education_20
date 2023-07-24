@@ -6,6 +6,7 @@ from kurs.models import Subscription
 
 
 class SubscriptionListView(generics.ListAPIView):
+    """ All subscriptions """
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
     permission_classes = [IsStaff | IsOwner]
@@ -13,6 +14,7 @@ class SubscriptionListView(generics.ListAPIView):
 
 
 class SubscriptionCreateView(generics.CreateAPIView):
+    """ Create subscription with owner information"""
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
     permission_classes = [IsStaff | IsOwner]
@@ -24,6 +26,7 @@ class SubscriptionCreateView(generics.CreateAPIView):
 
 
 class SubscriptionDeleteView(generics.DestroyAPIView):
+    """ Delete subscription """
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
     permission_classes = [IsStaff | IsOwner]
