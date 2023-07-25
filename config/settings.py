@@ -156,7 +156,3 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
-
-
-STRIPE_PUBLIC_KEY = "pk_test_51NXPaKCn4C5dva66izSNeZ4ZhckHXsfnh16OE3UhG0ZZ8kQgs1cSMw2mL247JjVnmmSFtpiZeVgmtrqiHauRc0nN004z9ptZGS"
-STRIPE_SECRET_KEY = "sk_test_51NXPaKCn4C5dva66mINywzPgyNFznygCyoFq01lCmrEHwkmEGzEFLfp36l1Nzx1Gt9jJxCOcrfbKY9R3HCxSfkjQ00NkNSsW8K"

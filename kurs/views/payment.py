@@ -1,11 +1,11 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
-
 from kurs.pagination import DataPaginator
 from kurs.serializers.payment import PaymentSerializer
 from kurs.models import Payment
 from rest_framework.filters import OrderingFilter
 from kurs.permissions import IsOwner, IsStaff
+from kurs.servises import Customer, PaymentCustomer
 
 
 class PaymentListView(generics.ListAPIView):
@@ -33,6 +33,13 @@ class PaymentCreateView(generics.CreateAPIView):
         new_payment = serializer.save()
         new_payment.owner = self.request.user
         new_payment.save()
+
+        new_customer = Customer(self.request.user)
+        new_customer.create_customer()
+        customer_id = new_customer.retrieve_customer()["id"]
+
+        new_payment = PaymentCustomer(customer_id, 12345)
+        new_payment.create_payment()
 
 
 class PaymentUpdateView(generics.UpdateAPIView):
