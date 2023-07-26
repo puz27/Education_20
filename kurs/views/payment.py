@@ -24,7 +24,7 @@ class PaymentDetailView(generics.RetrieveAPIView):
 
 
 class PaymentCreateView(generics.CreateAPIView):
-    """ Create payment with owner information"""
+    """ Create payment with owner information and cost of course"""
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [IsStaff | IsOwner]
@@ -42,6 +42,11 @@ class PaymentCreateView(generics.CreateAPIView):
         new_payment.create_payment()
 
 
+class PaymentRemoteDetailView(generics.RetrieveAPIView):
+    """ Detailed information about payment from remote base"""
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    permission_classes = [IsStaff | IsOwner]
 
 
 class PaymentUpdateView(generics.UpdateAPIView):

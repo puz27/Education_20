@@ -5,6 +5,7 @@ from kurs.views.payment import PaymentDetailView, PaymentListView, PaymentCreate
     PaymentUpdateView, PaymentFilter
 from kurs.views.course import CourseListView, CourseDetailView, CourseCreateView, CourseUpdateView, CourseDeleteView, CourseCountView, CourseListLessonView
 from kurs.views.subscription import SubscriptionListView, SubscriptionCreateView, SubscriptionDeleteView
+from kurs.views.payment import PaymentRemoteDetailView
 
 app_name = "kurs"
 
@@ -18,10 +19,11 @@ urlpatterns = [
     path("lesson/delete/<int:pk>/", LessonDeleteView.as_view(), name="lesson_delete"),
     # payment
     path("payment/", PaymentListView.as_view(), name="show_all_payments"),
-    path("payment/<int:pk>/", PaymentDetailView.as_view(), name="lesson_show"),
-    path("payment/create/", PaymentCreateView.as_view(), name="lesson_create"),
-    path("payment/update/<int:pk>/", PaymentUpdateView.as_view(), name="lesson_update"),
-    path("payment/delete/<int:pk>/", PaymentDeleteView.as_view(), name="lesson_delete"),
+    path("payment/<int:pk>/", PaymentDetailView.as_view(), name="lesson_payment"),
+    path("payment_remote/<int:pk>/", PaymentRemoteDetailView.as_view(), name="payment_remote"),
+    path("payment/create/", PaymentCreateView.as_view(), name="payment_create"),
+    path("payment/update/<int:pk>/", PaymentUpdateView.as_view(), name="payment_update"),
+    path("payment/delete/<int:pk>/", PaymentDeleteView.as_view(), name="payment_delete"),
     path("payment/filter/", PaymentFilter.as_view()),
     # course
     path("course/", CourseListView.as_view(), name="show_all_courses"),
