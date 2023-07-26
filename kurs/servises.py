@@ -1,5 +1,6 @@
 import stripe
 
+
 stripe.api_key = "sk_test_51NXPaKCn4C5dva66mINywzPgyNFznygCyoFq01lCmrEHwkmEGzEFLfp36l1Nzx1Gt9jJxCOcrfbKY9R3HCxSfkjQ00NkNSsW8K"
 
 
@@ -38,3 +39,8 @@ class PaymentCustomer:
         amount = stripe.PaymentIntent.retrieve(self.customer_id)["amount"]
         currency = stripe.PaymentIntent.retrieve(self.customer_id)["currency"]
         return amount, currency
+
+
+def convert_price(price_rub):
+    convert = price_rub / 90
+    return round(convert, 2)

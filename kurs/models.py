@@ -8,6 +8,7 @@ class Course(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name="course_description")
     image = models.ImageField(upload_to="images", null=True, blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    cost = models.IntegerField(null=False, blank=False, verbose_name="course_cost_rub")
 
     def __str__(self):
         return self.title
@@ -39,7 +40,6 @@ class Payment(models.Model):
     date = models.DateField()
     lesson = models.ForeignKey("Lesson", on_delete=models.SET_NULL, null=True, blank=True)
     course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True, blank=True)
-    payment = models.IntegerField(null=False, blank=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
 

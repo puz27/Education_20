@@ -3,6 +3,7 @@ from kurs.pagination import DataPaginator
 from kurs.serializers.course import CourseSerializer, CourseListLessonSerializer, CourseCountSerializer
 from rest_framework import generics
 from kurs.permissions import IsStaff, IsOwner
+from kurs.servises import Customer, PaymentCustomer
 
 
 class CourseListView(generics.ListAPIView):
@@ -30,6 +31,14 @@ class CourseCreateView(generics.CreateAPIView):
         new_course = serializer.save()
         new_course.owner = self.request.user
         new_course.save()
+
+        new_customer = Customer(self.request.user)
+        new_customer.create_customer()
+        customer_id = new_customer.retrieve_customer()["id"]
+        print(serializer["cost"])
+
+        new_payment = PaymentCustomer(customer_id, 123)
+        new_payment.create_payment()
 
 
 class CourseUpdateView(generics.UpdateAPIView):
