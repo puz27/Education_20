@@ -2,13 +2,11 @@ from rest_framework import serializers
 from kurs.models import Course, Subscription
 from kurs.serializers.lesson import LessonSerializer
 from kurs.validators import validator_scan_links
-from kurs.servises import convert_price, PaymentCustomer
 
 
 class CourseSerializer(serializers.ModelSerializer):
     description = serializers.CharField(validators=[validator_scan_links])
     subscribed_subscriptions = serializers.SerializerMethodField()
-    usd_price = serializers.SerializerMethodField()
     lessons_count = serializers.SerializerMethodField()
     lessons = LessonSerializer(many=True, read_only=True)
 
@@ -22,10 +20,6 @@ class CourseSerializer(serializers.ModelSerializer):
     def get_lessons_count(self, obj):
         """ Show counts of lessons in course """
         return obj.lesson.count()
-
-    def get_usd_price(self, obj):
-        usd_price = convert_price(obj.cost)
-        return usd_price
 
     class Meta:
         model = Course

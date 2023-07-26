@@ -5,7 +5,8 @@ from kurs.serializers.payment import PaymentSerializer
 from kurs.models import Payment
 from rest_framework.filters import OrderingFilter
 from kurs.permissions import IsOwner, IsStaff
-
+from kurs.servises import Customer, PaymentCustomer
+from rest_framework import serializers
 
 class PaymentListView(generics.ListAPIView):
     """ All payments """
@@ -32,6 +33,17 @@ class PaymentCreateView(generics.CreateAPIView):
         new_payment = serializer.save()
         new_payment.owner = self.request.user
         new_payment.save()
+
+        new_customer = Customer(self.request.user)
+        new_customer.create_customer()
+        customer_id = new_customer.retrieve_customer()["id"]
+        print(customer_id)
+        print(self.serializer_class)
+
+        # new_payment = PaymentCustomer(customer_id, self.get_course_amount())
+        # new_payment.create_payment()
+
+
 
 
 class PaymentUpdateView(generics.UpdateAPIView):
