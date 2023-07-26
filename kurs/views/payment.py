@@ -33,15 +33,13 @@ class PaymentCreateView(generics.CreateAPIView):
         new_payment = serializer.save()
         new_payment.owner = self.request.user
         new_payment.save()
-
+        # get user
         new_customer = Customer(self.request.user)
         new_customer.create_customer()
         customer_id = new_customer.retrieve_customer()["id"]
-        print(customer_id)
-        print(self.serializer_class)
-
-        # new_payment = PaymentCustomer(customer_id, self.get_course_amount())
-        # new_payment.create_payment()
+        # get user_id / cost of course and make request
+        new_payment = PaymentCustomer(customer_id, new_payment.course.cost)
+        new_payment.create_payment()
 
 
 
