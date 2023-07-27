@@ -8,6 +8,7 @@ from kurs.permissions import IsOwner, IsStaff
 from kurs.servises import Customer, PaymentCustomer
 from rest_framework import serializers
 
+
 class PaymentListView(generics.ListAPIView):
     """ All payments """
     queryset = Payment.objects.all()
@@ -36,10 +37,14 @@ class PaymentCreateView(generics.CreateAPIView):
         # get user
         new_customer = Customer(self.request.user)
         new_customer.create_customer()
+
         customer_id = new_customer.retrieve_customer()["id"]
+        get_id = serializer.save()
+        get_id.remote_id = customer_id
+        get_id.save()
         # get user_id / cost of course and make request
-        new_payment = PaymentCustomer(customer_id, new_payment.course.cost)
-        new_payment.create_payment()
+        make_payment = PaymentCustomer(customer_id, new_payment.course.cost)
+        make_payment.create_payment()
 
 
 class PaymentRemoteDetailView(generics.RetrieveAPIView):

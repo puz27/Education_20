@@ -22,7 +22,7 @@ class Customer:
 
 class PaymentCustomer:
 
-    def __init__(self, customer_id, amount):
+    def __init__(self, customer_id, amount=None):
         self.amount = amount
         self.customer_id = customer_id
         self.request = None
@@ -40,7 +40,3 @@ class PaymentCustomer:
         currency = stripe.PaymentIntent.retrieve(self.customer_id)["currency"]
         return amount, currency
 
-
-def convert_price(price_rub):
-    convert = price_rub / 90
-    return round(convert, 2)

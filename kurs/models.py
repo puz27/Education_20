@@ -41,6 +41,7 @@ class Payment(models.Model):
     lesson = models.ForeignKey("Lesson", on_delete=models.SET_NULL, null=True, blank=True)
     course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True, blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    remote_id = models.TextField(max_length=300, null=True)
 
 
 class Subscription(models.Model):
