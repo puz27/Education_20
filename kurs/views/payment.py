@@ -9,6 +9,7 @@ import stripe
 
 stripe.api_key = "sk_test_51NXPaKCn4C5dva66mINywzPgyNFznygCyoFq01lCmrEHwkmEGzEFLfp36l1Nzx1Gt9jJxCOcrfbKY9R3HCxSfkjQ00NkNSsW8K"
 
+
 class PaymentListView(generics.ListAPIView):
     """ All payments """
     queryset = Payment.objects.all()
@@ -34,17 +35,17 @@ class PaymentCreateView(generics.CreateAPIView):
         new_payment = serializer.save()
         new_payment.owner = self.request.user
         new_payment.save()
+
         # create user
         new_customer = self.request.user
-
         request_user = stripe.Customer.create(
             name=new_customer.email,
             email=new_customer.email,
         )
         current_id = request_user.id
         print(current_id)
-        # create transaction
 
+        # create transaction
         request_payment = stripe.PaymentIntent.create(
             amount=new_payment.course.cost,
             currency="usd",
@@ -52,7 +53,7 @@ class PaymentCreateView(generics.CreateAPIView):
             customer=current_id,
         )
         print(request_payment.id)
-
+        # save remote id to base
         new_payment = serializer.save()
         new_payment.remote_id = request_payment.id
         new_payment.save()
