@@ -1,11 +1,9 @@
 from rest_framework import serializers
-from kurs.models import Payment, Course
-from kurs.servises import PaymentCustomer
+from kurs.models import Payment
 import stripe
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-    # remote_info = serializers.SerializerMethodField()
 
     def create(self, validated_data):
         new_payment = Payment.objects.create(**validated_data)

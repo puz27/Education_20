@@ -5,9 +5,9 @@ from kurs.serializers.payment import PaymentSerializer, PaymentRemoteSerializer
 from kurs.models import Payment
 from rest_framework.filters import OrderingFilter
 from kurs.permissions import IsOwner, IsStaff
-from kurs.servises import Customer, PaymentCustomer
-from rest_framework import serializers
 import stripe
+
+stripe.api_key = "sk_test_51NXPaKCn4C5dva66mINywzPgyNFznygCyoFq01lCmrEHwkmEGzEFLfp36l1Nzx1Gt9jJxCOcrfbKY9R3HCxSfkjQ00NkNSsW8K"
 
 class PaymentListView(generics.ListAPIView):
     """ All payments """
