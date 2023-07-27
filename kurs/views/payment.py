@@ -56,7 +56,7 @@ class PaymentRemoteDetailView(generics.RetrieveAPIView):
 
 class PaymentUpdateView(generics.UpdateAPIView):
     """ Update information in payment """
-    queryset = Payment.objects.all()
+    # queryset = Payment.objects.filter(remote_id=remote_id)
     serializer_class = PaymentSerializer
     permission_classes = [IsStaff | IsOwner]
 

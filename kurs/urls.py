@@ -1,5 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
+
+from kurs.models import Payment
 from kurs.views.lesson import LessonDetailView, LessonListView, LessonCreateView, LessonDeleteView, LessonUpdateView
 from kurs.views.payment import PaymentDetailView, PaymentListView, PaymentCreateView, PaymentDeleteView, \
     PaymentUpdateView, PaymentFilter
@@ -20,7 +22,7 @@ urlpatterns = [
     # payment
     path("payment/", PaymentListView.as_view(), name="show_all_payments"),
     path("payment/<int:pk>/", PaymentDetailView.as_view(), name="lesson_payment"),
-    path("payment_remote/<int:remote_id>/", PaymentRemoteDetailView.as_view(), name="payment_remote"),
+    path("payment_remote/<int:remote_id>/", PaymentRemoteDetailView.as_view(queryset=Payment.objects.filter(remote_id=remote_id))),
     path("payment/create/", PaymentCreateView.as_view(), name="payment_create"),
     path("payment/update/<int:pk>/", PaymentUpdateView.as_view(), name="payment_update"),
     path("payment/delete/<int:pk>/", PaymentDeleteView.as_view(), name="payment_delete"),
