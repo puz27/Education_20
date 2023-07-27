@@ -20,7 +20,7 @@ urlpatterns = [
     # payment
     path("payment/", PaymentListView.as_view(), name="show_all_payments"),
     path("payment/<int:pk>/", PaymentDetailView.as_view(), name="lesson_payment"),
-    path("payment_remote/<int:pk>/", PaymentRemoteDetailView.as_view(), name="payment_remote"),
+    path("payment_remote/<int:remote_id>/", PaymentRemoteDetailView.as_view(), name="payment_remote"),
     path("payment/create/", PaymentCreateView.as_view(), name="payment_create"),
     path("payment/update/<int:pk>/", PaymentUpdateView.as_view(), name="payment_update"),
     path("payment/delete/<int:pk>/", PaymentDeleteView.as_view(), name="payment_delete"),

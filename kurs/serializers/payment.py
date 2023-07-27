@@ -18,11 +18,6 @@ class PaymentSerializer(serializers.ModelSerializer):
 class PaymentRemoteSerializer(serializers.ModelSerializer):
     remote_info = serializers.SerializerMethodField()
 
-    def get_remote_info(self, obj):
-        x = PaymentCustomer(obj)
-        print(x.retrieve_payment())
-        return x.retrieve_payment()
-
     class Meta:
         model = Payment
         fields = "__all__"
