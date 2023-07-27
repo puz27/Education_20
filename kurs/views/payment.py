@@ -1,13 +1,13 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from kurs.pagination import DataPaginator
-from kurs.serializers.payment import PaymentSerializer
+from kurs.serializers.payment import PaymentSerializer, PaymentRemoteSerializer
 from kurs.models import Payment
 from rest_framework.filters import OrderingFilter
 from kurs.permissions import IsOwner, IsStaff
 from kurs.servises import Customer, PaymentCustomer
 from rest_framework import serializers
-
+import stripe
 
 class PaymentListView(generics.ListAPIView):
     """ All payments """
@@ -34,29 +34,40 @@ class PaymentCreateView(generics.CreateAPIView):
         new_payment = serializer.save()
         new_payment.owner = self.request.user
         new_payment.save()
-        # get user
-        new_customer = Customer(self.request.user)
-        new_customer.create_customer()
+        # create user
+        new_customer = self.request.user
 
-        customer_id = new_customer.retrieve_customer()["id"]
-        get_id = serializer.save()
-        get_id.remote_id = customer_id
-        get_id.save()
-        # get user_id / cost of course and make request
-        make_payment = PaymentCustomer(customer_id, new_payment.course.cost)
-        make_payment.create_payment()
+        request_user = stripe.Customer.create(
+            name=new_customer.email,
+            email=new_customer.email,
+        )
+        current_id = request_user.id
+        print(current_id)
+        # create transaction
+
+        request_payment = stripe.PaymentIntent.create(
+            amount=new_payment.course.cost,
+            currency="usd",
+            automatic_payment_methods={"enabled": True},
+            customer=current_id,
+        )
+        print(request_payment.id)
+
+        new_payment = serializer.save()
+        new_payment.remote_id = request_payment.id
+        new_payment.save()
 
 
 class PaymentRemoteDetailView(generics.RetrieveAPIView):
     """ Detailed information about payment from remote base"""
     queryset = Payment.objects.all()
-    serializer_class = PaymentSerializer
+    serializer_class = PaymentRemoteSerializer
     permission_classes = [IsStaff | IsOwner]
 
 
 class PaymentUpdateView(generics.UpdateAPIView):
     """ Update information in payment """
-    # queryset = Payment.objects.filter(remote_id=remote_id)
+    queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [IsStaff | IsOwner]
 

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from kurs.models import Payment, Course
 from kurs.servises import PaymentCustomer
+import stripe
 
 
 class PaymentSerializer(serializers.ModelSerializer):
@@ -18,6 +19,13 @@ class PaymentSerializer(serializers.ModelSerializer):
 class PaymentRemoteSerializer(serializers.ModelSerializer):
     remote_info = serializers.SerializerMethodField()
 
+    def get_remote_info(self, obj):
+        remote_id = obj.remote_id
+        stripe.PaymentIntent.retrieve(remote_id)
+        print(stripe.PaymentIntent.retrieve(remote_id)["amount"])
+        return stripe.PaymentIntent.retrieve(remote_id)["amount"]
+
     class Meta:
         model = Payment
         fields = "__all__"
+
