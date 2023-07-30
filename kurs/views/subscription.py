@@ -25,6 +25,13 @@ class SubscriptionCreateView(generics.CreateAPIView):
         new_subscription.save()
 
 
+class SubscriptionUpdateView(generics.UpdateAPIView):
+    """ Update information in subscription """
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer
+    permission_classes = [IsStaff | IsOwner]
+
+
 class SubscriptionDeleteView(generics.DestroyAPIView):
     """ Delete subscription """
     queryset = Subscription.objects.all()
