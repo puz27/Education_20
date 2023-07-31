@@ -3,6 +3,7 @@ from kurs.pagination import DataPaginator
 from kurs.permissions import IsOwner, IsStaff
 from kurs.serializers.subscription import SubscriptionSerializer
 from kurs.models import Subscription
+from kurs.servises import sendmail
 
 
 class SubscriptionListView(generics.ListAPIView):
@@ -30,6 +31,10 @@ class SubscriptionUpdateView(generics.UpdateAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
     permission_classes = [IsStaff | IsOwner]
+
+    def put(self, request, *args, **kwargs):
+        sendmail("anv@woori.ru")
+        return self.update(request, *args, **kwargs)
 
 
 class SubscriptionDeleteView(generics.DestroyAPIView):
