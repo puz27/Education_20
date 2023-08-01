@@ -54,7 +54,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
+
+MIDDLEWARE_CLASSES = ('users.tasks.SetLastVisitMiddleware')
+
 
 ROOT_URLCONF = 'config.urls'
 
@@ -160,8 +164,8 @@ SIMPLE_JWT = {
 
 CELERY_BEAT_SCHEDULE = {
     'block_inactive_users': {
-        'task': 'myapp.tasks.block_inactive_users',
-        'schedule': timedelta(minutes=1),
+        'task': 'users.tasks.block_inactive_users',
+        'schedule': timedelta(minutes=1)
     },
 }
 

@@ -33,7 +33,7 @@ class SubscriptionUpdateView(generics.UpdateAPIView):
     permission_classes = [IsStaff | IsOwner]
 
     def put(self, request, *args, **kwargs):
-        sendmail("anv@woori.ru")
+        sendmail("test@test.ru")
         return self.update(request, *args, **kwargs)
 
 

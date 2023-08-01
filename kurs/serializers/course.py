@@ -2,7 +2,6 @@ from rest_framework import serializers
 from kurs.models import Course, Subscription
 from kurs.serializers.lesson import LessonSerializer
 from kurs.validators import validator_scan_links
-from kurs.tasks import block_inactive_users
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -13,7 +12,6 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_subscribed_subscriptions(self, obj):
         """ Show subscription of owners """
-        block_inactive_users()
         request = self.context.get('request')
         if request and request.user.is_authenticated:
             return Subscription.objects.filter(owner=request.user, course=obj).exists()
