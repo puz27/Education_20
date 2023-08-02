@@ -3,7 +3,7 @@ from kurs.pagination import DataPaginator
 from kurs.permissions import IsOwner, IsStaff
 from kurs.serializers.subscription import SubscriptionSerializer
 from kurs.models import Subscription
-from kurs.servises import sendmail
+from kurs.tasks import sendmail
 
 
 class SubscriptionListView(generics.ListAPIView):
@@ -33,7 +33,7 @@ class SubscriptionUpdateView(generics.UpdateAPIView):
     permission_classes = [IsStaff | IsOwner]
 
     def put(self, request, *args, **kwargs):
-        sendmail("test@test.ru")
+        sendmail.delay()
         return self.update(request, *args, **kwargs)
 
 

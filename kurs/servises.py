@@ -25,11 +25,3 @@ from django_celery_beat.models import PeriodicTask, \
 #          }),
 #          expires=datetime.utcnow() + timedelta(seconds=30)
 #      )
-
-
-def sendmail(to):
-    send_mail(f"Your subscription on site.",
-              f"Update information about your subscription.",
-              settings.EMAIL_HOST_USER,
-              [to],
-              fail_silently=False)
