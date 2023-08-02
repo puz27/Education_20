@@ -15,14 +15,14 @@ class SetLastVisitMiddleware(object):
 @shared_task(name="! block_inactive_users !")
 def block_inactive_users():
     print("Block users ... ")
-    need_date = (datetime.today() - timedelta(30)).date()
-    get_users = Users.objects.all()
-    print(need_date)
-    for user in get_users:
-        if user.last_login:
-            last = user.last_login.date()
-            print(last)
-            if last < need_date:
-                print(f"Block user{user.last_login}.")
-                user.is_active = False
-                user.save()
+    # need_date = (datetime.today() - timedelta(30)).date()
+    # get_users = Users.objects.all()
+    # print(need_date)
+    # for user in get_users:
+    #     if user.last_login:
+    #         last = user.last_login.date()
+    #         print(last)
+    #         if last < need_date:
+    #             print(f"Block user{user.last_login}.")
+    #             user.is_active = False
+    #             user.save()
