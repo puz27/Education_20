@@ -1,7 +1,6 @@
 from django.utils.timezone import now
 from celery import shared_task
 from users.models import Users
-from datetime import datetime, timedelta
 
 
 class SetLastVisitMiddleware(object):
@@ -12,9 +11,9 @@ class SetLastVisitMiddleware(object):
         return response
 
 
-@shared_task(name="! block_inactive_users !")
+@shared_task(name="block_inactive_users")
 def block_inactive_users():
-    print("Block users ... ")
+    print("Block users !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ")
     # need_date = (datetime.today() - timedelta(30)).date()
     # get_users = Users.objects.all()
     # print(need_date)

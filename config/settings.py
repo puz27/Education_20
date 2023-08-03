@@ -164,7 +164,7 @@ SIMPLE_JWT = {
 
 CELERY_BEAT_SCHEDULE = {
     'block_inactive_users': {
-        'task': 'users.tasks.block_inactive_users',
+        'task': 'block_inactive_users',
         'schedule': timedelta(minutes=1)
     },
 }
